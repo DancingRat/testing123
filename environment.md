@@ -968,3 +968,67 @@ export async function down(knex: Knex) {
     }
     };
     ```
+## For MongoDB
+- First you've to install MongoDB Compass and mongosh
+```
+- Install MongoDB Community Edition on Windows
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+- Install MongoDB Shell (mongosh)
+https://www.mongodb.com/docs/mongodb-shell/install/#std-label-mdb-shell-install
+```
+- then in your node server, run below command
+```
+npm install mongodb --save
+or 
+yarn add mongodb
+```
+## For Mongoose
+- Installation
+```
+npm install mongoose --save
+or
+yarn add mongoose
+```
+- In Server.ts, you've to
+```javascript
+import mongoose from 'mongoose'
+
+main().catch(err => console.log(err));
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/testing');
+}
+```
+- also you've to create a model folder, and open files for different collection's Schema, which like below
+```javascript
+import mongoose from "mongoose";
+
+const fmlSchema = new mongoose.Schema({
+    name:{type:"string", required:true},
+    date:{type: "number", default:Date.now}
+})
+const fml = mongoose.model(/*FMLCollection is the collection name*/'FMLCollection',fmlSchema)
+export default fml
+```
+- and for the api, it should be somthing like below
+```javascript
+import fml from './model/fml'
+//GET request
+app.get("/info", async(req, res) =>{
+    const resp = await fml.find({name:'Alex Tong'})
+    res.json(resp)})
+//POST request
+app.post("/info", async(req, res) =>{
+    const {names} = req.body
+    await fml.create({name:names})
+    res.json({message: 'Get info successful'})})
+//PUT request
+app.put("/info", async(req, res) =>{
+    const me = req.params.id
+    await fml.updateOne({_id:ObjectId('62781ebe53635e914f0c7dc6')},{$set:{name:me}})
+    res.json({message: 'Change info successful'})})
+//DELETE request
+app.delete("/info", async(req, res) =>{
+    const {names} = req.body
+    await fml.deleteOne({name:names})
+    res.json({message: 'Delete info successful'})})
+```
