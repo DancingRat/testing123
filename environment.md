@@ -1002,9 +1002,11 @@ async function main() {
 ```javascript
 import mongoose from "mongoose";
 
+const nestedObj = new mongoose.Schema({hobbies:String, age:Number})
 const fmlSchema = new mongoose.Schema({
-    name:{type:"string", required:true},
-    date:{type: "number", default:Date.now}
+    name:{type:String, required:true},
+    date:{type: Date, default:Date.now},
+    obj:nestedObj
 })
 const fml = mongoose.model(/*FMLCollection is the collection name*/'FMLCollection',fmlSchema)
 export default fml
