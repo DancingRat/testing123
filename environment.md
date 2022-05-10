@@ -998,7 +998,7 @@ async function main() {
   await mongoose.connect('mongodb://localhost:27017/testing');
 }
 ```
-- also you've to create a model folder, and open files for different collection's Schema, which like below
+- also you've to create a model folder, and open files for different collection's Schema, which like below(e.g. fml.ts)
 ```javascript
 import mongoose from "mongoose";
 
@@ -1033,4 +1033,24 @@ app.delete("/info", async(req, res) =>{
     const {names} = req.body
     await fml.deleteOne({name:names})
     res.json({message: 'Delete info successful'})})
+```
+- if we're doing MVC, the server.ts part should be like below
+```javascript
+import fml from './model/fml'
+import { FmlController } from "./controller/userController";
+import { FmlService } from "./services/userService";
+const fmlService = new FmlService(fml);
+export const fmlController = new FmlController(fmlService);
+```
+- and for the Service file in MVC, should be like below
+```javascript
+export class UsersService {
+constructor(private fml:any) {}
+getUserByEmail = async (personEmail: string) => {
+  return await this.fml.findOne({email:personEmail})
+}
+createUser = async () => {
+  return await this.fml.create({"email": "alex@gmail.com","password": 1234,})
+}
+}
 ```
