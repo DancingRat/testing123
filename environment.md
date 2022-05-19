@@ -271,6 +271,7 @@ P.S. the 2nd method is only work when 'index.js' is created and configured from 
 node_modules
 .DS_Store
 .env
+<<volume-created-folder from Docker compose file>>
 ```
 ## Create hashPassword logic
 1. install bcryptjs for hashing password
