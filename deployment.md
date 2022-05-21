@@ -134,12 +134,28 @@ docker-compose down
 P.S.: docker-compose down only remove container, for the images, you've to run 
 ```
 docker rmi <<container_id>>
+- if you wanna remove all container then remove all images all in one go
+要先
+docker container rm -f $(docker container ls -ap)
+再remove images
+docker image rm -f $(docker image ls -ap)
+- 或者你可開docker app
+press 'trouble shoot' button(蟲仔icon), then press 'Clean / Purge data'
+  - if you're using this method, beside of delete data, it'll also restart docker automatically
+```
+- you can run the command below to check the current container running
+```
+docker-compose ps
 ```
 - if you wanna enter the container 去做野, 就可打
 ```
 docker exec -it <<container name>> bash
+或者
+docker run -it <<docker image tag>>
 想走就打返
 exit
+如想要最高權限就打
+docker exec -it -u root <<container name>> bash
 ```
 7. After docker-compose up, the server and DB should be running, you can use Insomnia to test the node server, and enter psql container(with psql -U command) to test the DB
 
