@@ -64,6 +64,7 @@ node_modules
 .env
 .env.example
 <<volume-created-folder from compose file>>
+docker-compose.yml
 ```
 5. build file call docker-compose.yml, below is an example for node as a server and psql as a DB
 
@@ -225,8 +226,123 @@ then you can exit the ubuntu and re-enter, then run docker --version, and docker
   scp ./docker-compose.yml ubuntu@<<上面你在.ssh入面的config file裡9改的Host名(for the specific AWS Elastic IP)>>:~
   ```
   then you can enter back to ubuntu terminal(by ssh _your 9改 Host名 from above_), then type "ls" to check whether the file is there or not
+  
   3. In ubuntu terminal, type below command to load the image into ubuntu
   ```
-  docker load < <<.tar or .tar.gz file you created above>>
+  docker load < <<.tar or .tar.gz file you created above>>.tar
   ```
   then you can type "docker images" to check; and type "docker compose up" to run
+  
+  4. after the docker setup, it's time for nginx part, type below command
+  ```
+  sudo service nginx start
+
+  sudo nano /etc/nginx/sites-available/default
+
+  then put the below words inside location /{ }
+
+  proxy_pass http://localhost:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+  remember to comment the "try_files $uri $uri/ =404" inside location /{ }
+
+  sudo service nginx restart
+  ```
+  then you can put your Elastic IP in your browser then you will discover that the nginx site is connecting our docker server in our ubuntu
+
+
+# Deploying React separately
+## yarn build
+1. put the code below into the .env file inside my-app(react folder), then run yarn build
+```
+GENERATE_SOURCEMAP=false
+```
+2. go to AWS main page, click top right corner and click Security credentials
+3. click Users at sidebar then click Add users, then fill in the form by the following steps
+```
+1. - the User name is 9改
+   - tick the checkbox of "Access key - Programmatic access", then click Next: Permissions
+2. - can keep the default setting, and click Next:Tags
+3. - can keep the default setting, and click Next:Review
+4. - can keep the default setting, and click Create user
+5. - then you can download the csv
+```
+4. run the command below in terminal inside my-app(react folder)
+```
+pip install awscli
+
+aws configure
+
+# Copy AWS Access Key ID & Secret from rootkey.csv(the csv file downloaded from step 3.5)
+AWS Access Key ID [********************]: <<Access Key ID from csv>
+AWS Secret Access Key [********************]: <<Secret Access Key from csv>>
+
+# Most of the case in our course, we use Singapore as AWS location and the region of it is "ap-southeast-1"
+Default region name [ap-southeast-1]: ap-southeast-1
+Default output format [json]: json
+```
+5. type "s3" in the search bar of AWS, then click S3, then click Create bucket, and fill in the the form following steps below
+```
+- Bucket name: can 9改, but bear in mind that this name should be unique(意味這name不可與世上任一個Bucket撞名)
+- AWS region: should be Asia Pacific(Singapore) ap-southeast-1
+- untick the checkbox "Block all public access"
+  - and tick the relative checkbox "I acknowledge that the current settings might result in this bucket and the objects within becoming public."
+- then should keep all other setting as default and click Create bucket
+```
+6. click bucket at sidebar and click your newly created bucket then click Properties, scroll down to "Static website hosting" and click Edit, and fill in the form like below
+```
+- tick the 'enable' checkbox
+- then type "index.html" in the Index document
+- then should keep all other setting as default and click Save changes
+```
+7. back to your bucket and click "Permission", then click Edit on Bucket policy, then you should edit the Policy like below, then click Save changes
+```
+{
+	"Version": "<<use the default version it provided>>",
+	"Statement": [
+		{
+			"Sid": "Statement1",
+			"Principal": "*",
+			"Effect": "Allow",
+			"Action": "s3:GetObject",
+			"Resource": "<<the Amazon Resource Name (ARN) that you can copy from your bucket --> Properties>>/*"
+		}
+	]
+}
+```
+8. click top right corner and click Security credentials, then click Users, and click the user you created from step 3, then click "Add inline policy" from the Permission part, then click JSON and edit it like below, then click Review policy
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1546023631000",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:ListObjects",
+                "s3:ListBucket",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "<<Amazon Resource Name (ARN)>>",
+                "<<Amazon Resource Name (ARN)>>/*"
+            ]
+        }
+    ]
+}
+```
+In Review policy, the Name is 9改, then you can click Create policy
+
+9. back to terminal inside the build folder(the folder you just yarn build at step 1), the type the command below
+```
+aws s3 sync . s3://<<your newly created bucket name>>
+```
+then when you back to your bucket in S3 page, you can press F5 then click Object and you will see those files&folders from build folder are there
+
+10. When you click Properties from your bucket, scroll down to "Static website hosting", you'll discover that your got a url(Bucket website endpoint), which can go to your react index page
