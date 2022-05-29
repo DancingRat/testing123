@@ -1,4 +1,21 @@
 # gitlab guide
+## git installation(when your computer haven't done it yet)
+1. Go to https://git-scm.com/ and click "Download for Windows"(click Mac if you're using Mac)
+2. After installation, you can type "git --version" in powershell(or in VS code) to check is it installed
+3. You then have to set up "git config user.name" and "git config user.email" by the below command
+```
+- git config --global user.name "<<9改a name for you>>"
+- git config --global user.email "<<9改a email for you>>"
+
+P.S. You can set multiple user & email in one computer
+```
+then you can check the user.name and user.email that you've set by the following command
+```
+- git config user.name
+- git config user.email
+```
+
+
 ## **gitlab start up procedure**
 1. login your gitlab
 2. you've to generate a new SSH key if you don't have one
