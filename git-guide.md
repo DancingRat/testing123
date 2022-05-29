@@ -90,6 +90,15 @@ git clone <<Copied URL from step 6.1>>
     ```
     git push <<the copied HTTPS URL>> <<the branch you wanna push>>
     ```
+    then you can press F5 in github page to see the change; Moreever, you can press "commit" in the page to see the commit detail
+    - 2.3: 之後whenever you wanna push things to GitHub you can just run the command in step 2.2; However, sometimes you may forgot the copied HTTPS URL, so you can type the command below to save the URL as a name(we usually name that as "origin")
+    ```
+    git remote add origin <<the copied HTTPS URL>>
+
+    after that, you can run the command below to push things up without memorizing the URL every time
+
+    git push origin <<the branch you wanna push>>
+    ```
 
 - you're starting a new project, you don't have local repository, which mean you can clone the github remote repository to your local directly
 
