@@ -14,7 +14,7 @@ then you can check the user.name and user.email that you've set by the following
 - git config user.name
 - git config user.email
 ```
-
+4. testing checkout
 
 ## **gitlab start up procedure**
 1. login your gitlab
