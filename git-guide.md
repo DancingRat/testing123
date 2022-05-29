@@ -81,8 +81,8 @@ git clone <<Copied URL from step 6.1>>
     Repository name: 必須填番你想git上去嘅folder名
     Description:可填可不填
     Public/Private: Depend on your needs but usually private
-    Add a README file: you can tick this option if you don't have one in your folder
-    Add .gitignore: you can tick this option if you don't have one in your folder
+    Add a README file: don't tick
+    Add .gitignore: don't tick
     Choose a license: usually tick None
     ```
     then click Create repository
@@ -90,7 +90,7 @@ git clone <<Copied URL from step 6.1>>
     ```
     git push <<the copied HTTPS URL>> <<the branch you wanna push>>
     ```
-    then you can press F5 in github page to see the change; Moreever, you can press "commit" in the page to see the commit detail
+    then you can press F5 in github page to see the change; Moreover, you can press "commit" in the page to see the commit detail
     - 2.3: 之後whenever you wanna push things to GitHub you can just run the command in step 2.2; However, sometimes you may forgot the copied HTTPS URL, so you can type the command below to save the URL as a name(we usually name that as "origin")
     ```
     git remote add origin <<the copied HTTPS URL>>
@@ -101,6 +101,22 @@ git clone <<Copied URL from step 6.1>>
     ```
 
 - you're starting a new project, you don't have local repository, which mean you can clone the github remote repository to your local directly
+    - 2.1: press "New"/"Create new repository", then fill in the form like below
+    ```
+    Repository name: 可9改
+    Description:可填可不填
+    Public/Private: Depend on your needs but usually private
+    Add a README file: better tick this option
+    Add .gitignore: better tick this option
+    Choose a license: usually tick None
+    ```
+    then click Create repository
+    - 2.2: Then it'll give you a remote repository URL, copy that(the HTTPS one) and run the following command in a directory that you wanna place the newly created project
+    ```
+    git clone <<the copied HTTPS URL>>
+
+    P.S. you don't need to do the "git remote add origin" command as it'll automatically done it for you when you link to remote repository this way(git clone); you can run "git remote -v" to check that
+    ```
 
 ## **git command**
 - git --version
