@@ -1,5 +1,5 @@
-# gitlab guide
-## git installation(when your computer haven't done it yet)
+# Git guide
+## Git installation(when your computer haven't done it yet)
 1. Go to https://git-scm.com/ and click "Download for Windows"(click Mac if you're using Mac)
 2. After installation, you can type "git --version" in powershell(or in VS code) to check is it installed
 3. You then have to set up "git config user.name" and "git config user.email" by the below command
@@ -30,6 +30,16 @@ git branch -a
 git switch <<branch name>>
 ```
 P.S. you can do all these on bottom left corner of VS code
+
+- if you wanna delete an entire branch, type command like below (use with caution)
+```
+git branch -D <<branch name>>
+```
+- Merging, if you want to merge one branch to another, first you've to enter the branch that you wanna merge something in it(current branch, 被merge的branch), then type the following command to merge the branch(插入的一方) into the current branch
+```
+git merge <<branch name that you wanna merge to current branch(插入的一方)>>
+```
+P.S. if there're conflict during merging, git will ask you to accept incoming/current/both changes; then you just choose all the changes you want, then git commit again, and you're good to go
 
 ## **gitlab start up procedure**
 1. login your gitlab
@@ -62,6 +72,26 @@ gitlab main page --> press icon button from top right corner -->  press 'prefere
 git clone <<Copied URL from step 6.1>>
 ```
 
+## **github start up procedure**
+1. sign in(you can sign up if you don't have one') and reach the github dashboard
+2. Depending on your situation, usually two
+- you already have a ongoing local git repository, and you wanna push it to remote repository in github
+    - 2.1: press "New"/"Create new repository", then fill in the form like below
+    ```
+    Repository name: 必須填番你想git上去嘅folder名
+    Description:可填可不填
+    Public/Private: Depend on your needs but usually private
+    Add a README file: you can tick this option if you don't have one in your folder
+    Add .gitignore: you can tick this option if you don't have one in your folder
+    Choose a license: usually tick None
+    ```
+    then click Create repository
+    - 2.2: Then it'll give you a remote repository URL, copy that(the HTTPS one) and run the following command in your targeted folder directory
+    ```
+    git push <<the copied HTTPS URL>> <<the branch you wanna push>>
+    ```
+
+- you're starting a new project, you don't have local repository, which mean you can clone the github remote repository to your local directly
 
 ## **git command**
 - git --version
