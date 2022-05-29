@@ -14,7 +14,22 @@ then you can check the user.name and user.email that you've set by the following
 - git config user.name
 - git config user.email
 ```
-4. testing checkout
+
+
+## Git branch
+- to open a new branch, type command like below
+```
+git branch <<branch name>>
+```
+- then you can see what branches you have by typing the following command
+```
+git branch -a
+```
+- then you can enter the branch you like by typing the following command
+```
+git switch <<branch name>>
+```
+P.S. you can do all these on bottom left corner of VS code
 
 ## **gitlab start up procedure**
 1. login your gitlab
@@ -63,8 +78,13 @@ git clone <<Copied URL from step 6.1>>
     - can check your previous committed version, with your config name and email; your can also check the detail about this from Git Graph(extension in VS code)
 - git restore --staged <u>filename</u>
     - to restore a staged file, which mean making a staged file becoming untracked
-- git checkout <u>committed message</u>
-    - to rollback to your previous version; your can use git log/Git Graph to find the version that your're looking for
+- git checkout <u>committed id or message</u>
+    - to rollback to your previous version with a new branch; your can use git log/Git Graph to find the version that your're looking for
+- git switch -
+    - can return to your latest version in main branch, after you've git checkout
+- git reset <u>committed id</u> (use with extreme caution)
+    - to rollback to your previous version(according to your commit id) and delete all version after that version
+    - when you type "git reset --hard <u>committed id</u>"; you'll roll everything back to that version, not only delete the newer version
 ---
 - git add <u>filename</u>
     - can make a file tracked/staged
