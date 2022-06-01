@@ -117,6 +117,7 @@ git clone <<Copied URL from step 6.1>>
 
     P.S. you don't need to do the "git remote add origin" command as it'll automatically done it for you when you link to remote repository this way(git clone); you can run "git remote -v" to check that
     ```
+P.S. 如果淨係打git push, 在github是唔work的, 只在gitlab裡面work
 
 ## **git command**
 - git --version
