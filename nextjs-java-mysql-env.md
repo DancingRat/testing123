@@ -13,4 +13,8 @@ or
 yarn add antd
 ```
 # backend
-# Java
+## Java Spring Boot
+- Install intelliJ as text editor
+
+
+- if想轉jdk ver., right click project folder>open module settings>project>sdk

@@ -1,3 +1,24 @@
+# Linux
+## To rename a folder in Linux 
+- mv << old folder >>/ <<新名of the folder>>/
+
+## Move folder from remote to remote
+- scp -r [file/dirname] [server user]@[host]:[path]
+## Set up Mysql in new VM
+1. sudo -i to enter root and, mysql -u root -p, password is nothing
+2. CREATE USER '<< username >>'@localhost IDENTIFIED BY '<< password >>';
+3. create database << DB name >>;
+4. GRANT ALL PRIVILEGES ON << DB name >>.* TO << username >>@localhost;
+
+- command of entering mysql: mysql -u [db username] -p
+
+## Import & Export mysql dump file
+- Export
+  - mysqldump -u [username] -p [database] > [想改的.sql filename]
+- Import
+  - sudo mysql -u root -p [database] < [想改的.sql filename].sql
+
+
 # Docker
 ## installing WSL in Window
 1. right click powershell and press 以系統管理員身份執行

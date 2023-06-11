@@ -1,6 +1,7 @@
 # **Set up of a project**
 # Front-end
 ## For 純HTML,JavaScript, and CSS
+- in order to open html file in web browser, you can install a vscode extension called "open in browser", after that, right-click your html file and click "open in default browser"
 - have to at least set up a public folder for guest; and a private folder for logged in people
   - the HTML file inside should connect to a js and a CSS file, with some libraries/framework, such as bootstrap, font-awesome, moment.js, google font etc.
   - login page like below
