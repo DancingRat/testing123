@@ -11,6 +11,7 @@ php --version
 or go the a directory that contain a php file and type
 php <<filename>>.php
 ```
+7. to prevent the "The zip extension and unzip/7z commands are both missing" error; go to php.ini and uncomment the ";extension=zip"(basically just delete the semi-colon)
 
 ## Composer setup
 1. go to https://getcomposer.org/ and click download
