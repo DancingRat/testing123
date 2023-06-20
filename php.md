@@ -13,6 +13,11 @@ php <<filename>>.php
 ```
 7. to prevent the "The zip extension and unzip/7z commands are both missing" error; go to php.ini and uncomment the ";extension=zip"(basically just delete the semi-colon)
 
+## XAMPP setup
+1. go to https://www.apachefriends.org/ , and download window ver.
+2. keep pressing Next and download
+3. then start Apache and Mysql server, then search localhost:80 on web to check
+
 ## Composer setup
 1. go to https://getcomposer.org/ and click download
 2. click "Composer-Setup.exe" from Window Installer; then open the .exe and click "Install for all users"
@@ -20,10 +25,38 @@ php <<filename>>.php
 4. open cmd and type composer to check
 
 ## Drupal setup
+- setup with command
 1. before install Drupal, you've to install git, php & composer(please check PHP and Composer setup guide shown above)
 2. go to cmd of desktop or the directory you wanna build your Drupal project and type the command below
 ```
 composer create-project drupal/recommended-project <<project name>>
+```
+- setup with zip folder(prefered when using XAMPP)
+1. Go to https://www.drupal.org/download and download Drupal zip, then and unzip it
+2. Go to C:\xampp\htdocs and create your Drupal project folder, then put all the files/folders into it that from the unzip folder(from step 1)
+3. start the XAMPP server(Apache & Mysql), then search 'localhost/<< folder name created from step 2>>' in web
+4. choose the language and choose standard for installation profile
+5. then you'll get 2 errors(php gd extensions & php opcode caching);
+    - for gd extensions, go to php.ini , delete the semi-colon(;) of
+    ```
+    ;extension=gd
+    ```
+    - For OPcode caching, paste the line below into the bottom of php.ini
+    ```
+    zend_extension = "C:\xampp\php\ext\php_opcache.dll"
+    ```
+    P.S. remeber to restart the XAMPP server after the step above
+6. Then for Database configuration, build a new db for this project on localhost(127.0.0.1); you can use Mysql workbench or phpMyAdmin to do so. To fill in the db configuration
+    - db name: << the db name you've just created>>
+    - db username: should be 'root' for original local db setting
+    - db pw: should be Blank for original local db setting
+    - for advance option, check the host and port number; then click save
+7. Finally for the configure site, customize all the stuff and click save
+
+    P.S. For SITE MAINTENANCE ACCOUNT, this is the super admin that should have longer/complex username & pw for security purpose; and you shouldn't forget this account
+8. You can install Drush by the command below
+```
+composer global require drush/drush:dev-master
 ```
 
 ## PHP setup(laragon)
