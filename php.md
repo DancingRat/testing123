@@ -58,6 +58,17 @@ composer create-project drupal/recommended-project <<project name>>
 ```
 composer global require drush/drush:dev-master
 ```
+9. after basic installation, there should be a vital error under Configuration, which is Trusted Host Settings Error, shown in status report; you should add the code below in C:\xampp\htdocs\<< project name >>\sites\default\settings.php
+```
+for local dev
+$settings['trusted_host_patterns'] = ['^localhost$'];
+
+for production, e.g.
+$settings['trusted_host_patterns'] = ['^google\.com$'];
+
+for production in sub-domain, e.g.
+$settings['trusted_host_patterns'] = ['^.+\.google\.com$'];
+```
 
 ## PHP setup(laragon)
 1. Go to https://laragon.org/ , click Download, then click "Download Laragon - Full (147 MB)"
